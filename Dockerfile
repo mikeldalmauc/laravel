@@ -22,6 +22,8 @@ RUN apt-get install -y \
 
 # RUN curl -sL https://deb.nodesource.com/setup | bash 
 RUN apt-get install -yq nodejs npm
+RUN npm install -g n
+RUN n stable
 
 # # add user with sudo privileges within Docker container 
 # # without adduser input questions
@@ -80,5 +82,4 @@ RUN composer install
 RUN composer require laravel/ui --dev
 RUN php artisan key:generate
 RUN php artisan ui vue --auth
-RUN npm install -g n
-RUN n stable
+

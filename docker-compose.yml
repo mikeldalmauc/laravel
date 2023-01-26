@@ -14,6 +14,7 @@ services:
       - .:/var/www/html
     ports:
       - 8000:80
+      - 5173:5173
     networks:
       backend:
         aliases:
@@ -32,7 +33,6 @@ services:
       - MYSQL_PASSWORD=secret
     ports:
       - 3306:3306
-      - 5173:5173
     networks:
       backend:
         aliases:
