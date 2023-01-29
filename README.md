@@ -66,14 +66,17 @@ https://dev.to/veevidify/docker-compose-up-your-entire-laravel-apache-mysql-deve
 
 
 18. Si nos falla la version de php minima podemos probar lo siguiente
+	18.a Buscarn una imagen base nueva, reeplazar primera intrucción por 
+		`php:8.2.1-apache`
 
-	18.a. Borrar containers
+
+	18.b Borrar containers
 		
 		`docker system prune -a`
 		`docker-compose up -d --force-recreate --build`
 		`docker-compose pull`
 		
-	18.b Si falla al añadir extensiones probar con:
+	18.c Si falla al añadir extensiones probar con:
 		`RUN apt-get update`
 		`RUN apt-get install libonig-dev`
 		`RUN apt-get install -y libzip-dev `
@@ -84,7 +87,7 @@ https://dev.to/veevidify/docker-compose-up-your-entire-laravel-apache-mysql-deve
 	
 20.  `php artisan migrate`
 	
-	20. Si esto falla es que tenemos el puerto de antes bloqueado o nos hemos equivocado en configurar 
+	1.  Si esto falla es que tenemos el puerto de antes bloqueado o nos hemos equivocado en configurar 
 	el fichero .env
 
 21. php artisan make:auth
