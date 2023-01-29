@@ -146,6 +146,20 @@ docker rmi -f $(docker images | grep "none" | awk '/ / { print $3 }')
 
  docker build -t static-site .
 	docker run -it -d -p 80:80 static-site
+
+
+docker run --name basic-mysql --rm -v /tmp/mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=ANSKk08aPEDbFjDO -e MYSQL_DATABASE=testing -p 3306:3306 -it mysql:8.0
+
+
+docker network connect proxy mysql:8.0
+
+php myadmin
+ docker run --name myadmin -d --link basic-mysql:db -p 8080:80 phpmyadmin
+docker ps
+
+docker network connect proxy myadmin
+
+
 https://stackoverflow.com/questions/34545641/php-artisan-makeauth-command-is-not-defined
 https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/
 https://docs.docker.com/engine/context/working-with-contexts/
