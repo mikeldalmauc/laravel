@@ -62,8 +62,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # 6. we need a user with the same UID/GID with host user
 # so when we execute CLI commands, all the host file's ownership remains intact
 # otherwise command from inside container will create root-owned files and directories
-ARG uid
-RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
+ARG APACHE_RUN_USER=#1000
+ARG APACHE_RUN_GROUP=#1000
+RUN useradd -G www-data,root -u 1000 -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
 
@@ -75,6 +76,7 @@ RUN mkdir -p /home/devuser/.composer && \
  # This loads nvm bash_completion
 
 WORKDIR /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 COPY . /var/www/html/
 RUN npm install
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -82,4 +84,3 @@ RUN composer install
 RUN composer require laravel/ui --dev
 RUN php artisan key:generate
 RUN php artisan ui vue --auth
-
